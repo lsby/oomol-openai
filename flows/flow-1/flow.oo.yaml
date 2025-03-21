@@ -1,0 +1,67 @@
+nodes:
+  - task: oomol-preview::markdown_text_preview
+    title: "Markdown preview #1"
+    node_id: markdown_text_preview#1
+    inputs_from:
+      - handle: text
+        from_node:
+          - node_id: chat#1
+            output_handle: output
+  - task: self::chat
+    node_id: chat#1
+    inputs_from:
+      - handle: base
+        value: http://192.168.8.100:8000/v1
+        from_node:
+          - node_id: +value#2
+            output_handle: openai服务器地址
+      - handle: key
+        value: "123456"
+      - handle: model
+        value: gemma-2-27b-it
+      - handle: messages
+        value:
+          - role: user
+            content: 你好
+  - values:
+      - handle: openai服务器地址
+        json_schema:
+          type: string
+        value: http://192.168.8.100:8000/v1
+    title: "Value #2"
+    node_id: +value#2
+  - task: self::json
+    node_id: json#3
+    inputs_from:
+      - handle: base
+        value: http://192.168.8.100:8000/v1
+        from_node:
+          - node_id: +value#2
+            output_handle: openai服务器地址
+      - handle: key
+        value: "123456"
+      - handle: model
+        value: gemma-2-27b-it
+      - handle: messages
+        value:
+          - role: system
+            content: 你是一位很有帮助的数学老师。指导用户逐步完成解决方案。
+          - role: user
+            content: 怎么解 8x + 7 = -23
+      - handle: schame
+        value: |-
+          {
+            steps:{
+              explanation: string,
+              output: string,
+            }[],
+            final_answer: string,
+          }
+  - task: oomol-preview::html_preview
+    title: "HTML preview #1"
+    node_id: html_preview#1
+    inputs_from:
+      - handle: html
+        from_node:
+          - node_id: json#3
+            output_handle: output

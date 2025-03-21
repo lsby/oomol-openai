@@ -1,0 +1,56 @@
+inputs_def:
+  - handle: base
+    json_schema:
+      type: string
+    value: http://192.168.8.100:8000/v1
+  - handle: key
+    description: Input
+    json_schema:
+      type: string
+    value: "123456"
+  - handle: model
+    json_schema:
+      type: string
+    value: gemma-2-27b-it
+  - handle: messages
+    json_schema:
+      type: array
+      items:
+        type: object
+        additionalProperties: false
+        properties:
+          role:
+            type: string
+            pattern: \b(system|assistant|user)\b
+          content:
+            type: string
+    value:
+      - role: system
+        content: 你是一位很有帮助的数学老师。指导用户逐步完成解决方案。
+      - role: user
+        content: 怎么解 8x + 7 = -23
+  - handle: schame
+    json_schema:
+      type: string
+      ui:widget: text
+    value: |-
+      {
+        steps:{
+          explanation: string,
+          output: string,
+        }[],
+        final_answer: string,
+      }
+outputs_def:
+  - handle: output
+    description: Output
+    json_schema:
+      type: string
+ui:
+  default_width: 450
+executor:
+  name: nodejs
+  options:
+    spawn: false
+    entry: main.ts
+icon: ":skill-icons:typescript:"
