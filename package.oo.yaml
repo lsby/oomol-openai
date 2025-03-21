@@ -1,4 +1,4 @@
-version: 0.0.1
+version: 0.0.2
 scripts:
   # Script executed when the container is first loaded
   # eg: bootstrap: pip install pandas
@@ -10,3 +10,5 @@ dependencies:
 name: openai
 description: 支持调用openai形式的ai服务
 displayName: openai
+repository: https://github.com/lsby/oomol-openai
+releaseNotes: 添加git仓库地址
