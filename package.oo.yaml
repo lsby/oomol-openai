@@ -1,4 +1,4 @@
-version: 0.0.2
+version: 0.0.1
 scripts:
   # Script executed when the container is first loaded
   # eg: bootstrap: pip install pandas
@@ -6,9 +6,9 @@ scripts:
     npm install
     pip install -r requirements.txt
 dependencies:
-  oomol-preview: 0.0.2
-name: openai
+  oomol-preview: 0.0.3
+name: "@lsby/openai"
 description: 支持调用openai形式的ai服务
 displayName: openai
 repository: https://github.com/lsby/oomol-openai
-releaseNotes: 添加git仓库地址
+releaseNotes: start
